@@ -29,25 +29,49 @@ const PostsManager = () => {
 
   // 상태 관리
   const [posts, setPosts] = useState([])
+
+  // 페지이션
   const [total, setTotal] = useState(0)
   const [skip, setSkip] = useState(parseInt(queryParams.get("skip") || "0"))
   const [limit, setLimit] = useState(parseInt(queryParams.get("limit") || "10"))
+
+  //게시물 검색
   const [searchQuery, setSearchQuery] = useState(queryParams.get("search") || "")
+
+  //게시물 업데이트, 상세보기
   const [selectedPost, setSelectedPost] = useState(null)
+
+  //정렬 대상, 정렬 방식
   const [sortBy, setSortBy] = useState(queryParams.get("sortBy") || "")
   const [sortOrder, setSortOrder] = useState(queryParams.get("sortOrder") || "asc")
+
+  //게시물 추가/수정 관련 Dialog 열기/닫기
   const [showAddDialog, setShowAddDialog] = useState(false)
   const [showEditDialog, setShowEditDialog] = useState(false)
+
+  //게시물 추가
   const [newPost, setNewPost] = useState({ title: "", body: "", userId: 1 })
+
+  //로딩창
   const [loading, setLoading] = useState(false)
+
+  //태그
   const [tags, setTags] = useState([])
   const [selectedTag, setSelectedTag] = useState(queryParams.get("tag") || "")
+
+  //댓글 - 선택, 수정
   const [comments, setComments] = useState({})
   const [selectedComment, setSelectedComment] = useState(null)
   const [newComment, setNewComment] = useState({ body: "", postId: null, userId: 1 })
+
+  //댓글 관련 Dialog 열기/닫기
   const [showAddCommentDialog, setShowAddCommentDialog] = useState(false)
   const [showEditCommentDialog, setShowEditCommentDialog] = useState(false)
+
+  //게시물 상세보기 관련 Dialog 열기/닫기
   const [showPostDetailDialog, setShowPostDetailDialog] = useState(false)
+
+  //사용자 모달 열기/닫기, 사용자 데이터
   const [showUserModal, setShowUserModal] = useState(false)
   const [selectedUser, setSelectedUser] = useState(null)
 
@@ -386,6 +410,7 @@ const PostsManager = () => {
                 ))}
               </SelectContent>
             </Select>
+
             <Select value={sortBy} onValueChange={setSortBy}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="정렬 기준" />
@@ -397,6 +422,7 @@ const PostsManager = () => {
                 <SelectItem value="reactions">반응</SelectItem>
               </SelectContent>
             </Select>
+
             <Select value={sortOrder} onValueChange={setSortOrder}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="정렬 순서" />
